@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 
 public class Duke {
@@ -8,25 +7,24 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
+
         System.out.println("Hello from\n" + logo);
 
         for (int i = 0; i < 85; i++) {
             System.out.print("_");
-
         }
+
         System.out.print("\n");
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I  do for you?");
+
         for (int i = 0; i < 85; i++) {
             System.out.print("_");
-
         }
+
         System.out.print("\n");
-
         Scanner scan = new Scanner(System.in);
-
         String arr[]= new String[100];
-
         String checks[] = new String[100];
 
         int j=0;
@@ -34,7 +32,6 @@ public class Duke {
         while(true) {
             arr[j] = scan.nextLine();
             checks[j] = "[✘]";
-
             String[] parts = arr[j].split(" ");
 
             if(parts[0].equals("done")){
@@ -42,10 +39,12 @@ public class Duke {
                 checks[Integer.parseInt(parts[1])-1] = "[✓]";
                 System.out.println("[✓] "+ arr[Integer.parseInt(parts[1])-1]);
             }
+
             else if (arr[j].equals("bye")) {
                 System.out.println("BYE! See you again!");
                 break;
             }
+
             else if(arr[j].equals("list")) {
                 int a = j;
                 int b = 0;
@@ -55,7 +54,9 @@ public class Duke {
                     b++;
                 }
             }
+
             else {
+
                 for (int i = 0; i < 85; i++) {
                     System.out.print("_");
                 }
@@ -68,6 +69,7 @@ public class Duke {
                 }
                 System.out.print("\n");
             }
+            
         }
     }
 }
