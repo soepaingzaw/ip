@@ -38,7 +38,7 @@ public class Duke {
                 System.out.println("BYE! See you again!");
                 break;
             }
-            /*
+
             else if(arr[j].equals("list")) {
                 int a = j;
                 int b = 0;
@@ -49,15 +49,14 @@ public class Duke {
 
             }
 
-             */
             else {
                 for (int i = 0; i < 85; i++) {
                     System.out.print("_");
                 }
                 System.out.print("\n");
 
-                System.out.println(arr[j++]);
-                //System.out.println("added:" + arr[j++]);
+                System.out.println("added: " + arr[j++]);
+
                 for (int i = 0; i < 85; i++) {
                     System.out.print("_");
                 }
