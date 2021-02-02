@@ -24,45 +24,59 @@ public class Duke {
 
         System.out.print("\n");
         Scanner scan = new Scanner(System.in);
-        String arr[]= new String[100];
-        String checks[] = new String[100];
 
-        int j=0;
+        //new String[numRowsofData]
+        String[] tasks= new String[25];
+        String[] checks = new String[25];
+       // String type[]=new String[25];
+        String[] parts;
+
+        int index=0;
+        int count;
+        int num;
 
         while(true) {
-            arr[j] = scan.nextLine();
-            checks[j] = "[✘]";
-            String[] parts = arr[j].split(" ");
+            tasks[index] = scan.nextLine();
+            checks[index] = "[✘]";
+            parts = tasks[index].split(" ");//splits string into separate parts
 
-            if(parts[0].equals("done")){
+            if(parts[0].equals("done")) {
                 System.out.println("Nice! I've marked this task as done:");
-                checks[Integer.parseInt(parts[1])-1] = "[✓]";
-                System.out.println("[✓] "+ arr[Integer.parseInt(parts[1])-1]);
+                checks[Integer.parseInt(parts[1]) - 1] = "[✓]";
+                System.out.println("[✓] " + tasks[Integer.parseInt(parts[1]) - 1]);
             }
 
-            else if (arr[j].equals("bye")) {
+            else if (tasks[index].equals("bye")) {
                 System.out.println("BYE! See you again!");
                 break;
             }
 
-            else if(arr[j].equals("list")) {
-                int a = j;
-                int b = 0;
-                while (a != 0) {
-                    System.out.println(b + 1 + ". " + checks[b] + " " + arr[b]);
-                    a--;
-                    b++;
+            else if(tasks[index].equals("list")) {
+                count = index;
+                num = 0;
+                while (count != 0) {
+                    System.out.println(num + 1 + ". " + checks[num] + " " + tasks[num]);
+                    count--;
+                    num++;
                 }
             }
 
+            //Below code increments index as tasks are being added
             else {
 
+/*
+                if(parts[0].equals("todo")){
+                    type[index]="[T]";
+                    tasks[index]=tasks[index].delete(0,4)];
+                }
+*/
                 for (int i = 0; i < 85; i++) {
                     System.out.print("_");
                 }
                 System.out.print("\n");
 
-                System.out.println("added: " + arr[j++]);
+
+                System.out.println("added: " + tasks[index++]);
 
                 for (int i = 0; i < 85; i++) {
                     System.out.print("_");
