@@ -1,6 +1,10 @@
 import java.util.Scanner;
 
 public class Duke {
+
+    static final int ITEMS = 25;
+    static final int LINES = 85;
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -10,7 +14,7 @@ public class Duke {
 
         System.out.println("Hello from\n" + logo);
 
-        for (int i = 0; i < 85; i++) {
+        for (int i = 0; i < LINES; i++) {
             System.out.print("_");
         }
 
@@ -18,7 +22,7 @@ public class Duke {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I  do for you?");
 
-        for (int i = 0; i < 85; i++) {
+        for (int i = 0; i < LINES; i++) {
             System.out.print("_");
         }
 
@@ -26,10 +30,10 @@ public class Duke {
         Scanner scan = new Scanner(System.in);
 
         //new String[numRowsofData]
-        String[] tasks= new String[25];
-        String[] checks = new String[25];
-        String[] type=new String[25];
-        String[] deadline=new String[25];
+        String[] tasks= new String[ITEMS];
+        String[] checks = new String[ITEMS];
+        String[] type=new String[ITEMS];
+        String[] deadline=new String[ITEMS];
         String[] parts;
 
         int index=0;
@@ -108,7 +112,7 @@ public class Duke {
 
                 }
 
-                for (int i = 0; i < 85; i++) {
+                for (int i = 0; i < LINES; i++) {
                     System.out.print("_");
                 }
 
@@ -119,7 +123,7 @@ public class Duke {
                         + tasks[index] + " " + deadline[index++] +"\n"
                 + "Now you have " + index + " task(s) in the list"  );
 
-                for (int i = 0; i < 85; i++) {
+                for (int i = 0; i < LINES; i++) {
                     System.out.print("_");
                 }
 
