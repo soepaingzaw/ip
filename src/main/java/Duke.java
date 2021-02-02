@@ -28,22 +28,26 @@ public class Duke {
         //new String[numRowsofData]
         String[] tasks= new String[25];
         String[] checks = new String[25];
-       // String type[]=new String[25];
+        String[] type=new String[25];
+        String[] deadline=new String[25];
         String[] parts;
 
         int index=0;
         int count;
         int num;
+        int temp;
 
         while(true) {
+
             tasks[index] = scan.nextLine();
             checks[index] = "[✘]";
             parts = tasks[index].split(" ");//splits string into separate parts
 
             if(parts[0].equals("done")) {
+                temp=Integer.parseInt(parts[1]) - 1;
                 System.out.println("Nice! I've marked this task as done:");
-                checks[Integer.parseInt(parts[1]) - 1] = "[✓]";
-                System.out.println("[✓] " + tasks[Integer.parseInt(parts[1]) - 1]);
+                checks[temp] = "[✓]";
+                System.out.println(type[temp] + checks[temp] + " " + tasks[temp]);
             }
 
             else if (tasks[index].equals("bye")) {
@@ -54,8 +58,12 @@ public class Duke {
             else if(tasks[index].equals("list")) {
                 count = index;
                 num = 0;
+
                 while (count != 0) {
-                    System.out.println(num + 1 + ". " + checks[num] + " " + tasks[num]);
+
+                    System.out.println(num + 1 + ". " +
+                            type[num]+ checks[num] + " " + tasks[num]
+                    +deadline[num]);
                     count--;
                     num++;
                 }
@@ -64,26 +72,60 @@ public class Duke {
             //Below code increments index as tasks are being added
             else {
 
-/*
+                //initialise deadline as empty space
+                deadline[index]=" ";
+
                 if(parts[0].equals("todo")){
+                    //substring to extract out string in concern
+                    tasks[index] = tasks[index].substring(5, tasks[index].length());
                     type[index]="[T]";
-                    tasks[index]=tasks[index].delete(0,4)];
                 }
-*/
+
+                else if(parts[0].equals("deadline")){
+
+                    tasks[index] = tasks[index].substring(9, tasks[index].length());
+
+                    type[index]="[D]";
+
+                    temp=tasks[index].indexOf('/');
+
+                    deadline[index]="(by:"+tasks[index].substring(temp+3,
+                            tasks[index].length()) + ")";
+                    tasks[index]=tasks[index].substring(0, temp);
+
+                }
+                else if(parts[0].equals("event")){
+
+                    tasks[index] = tasks[index].substring(6, tasks[index].length());
+
+                    type[index]="[E]";
+
+                    temp=tasks[index].indexOf('/');
+
+                    deadline[index]="(at:"+tasks[index].substring(temp+3,
+                            tasks[index].length()) + ")";
+                    tasks[index]=tasks[index].substring(0, temp);
+
+                }
+
                 for (int i = 0; i < 85; i++) {
                     System.out.print("_");
                 }
+
                 System.out.print("\n");
 
-
-                System.out.println("added: " + tasks[index++]);
+                System.out.println("Got it. I've added this task:\n  "
+                        + type[index] + checks[index] + " "
+                        + tasks[index] + " " + deadline[index++] +"\n"
+                + "Now you have " + index + " task(s) in the list"  );
 
                 for (int i = 0; i < 85; i++) {
                     System.out.print("_");
                 }
+
                 System.out.print("\n");
+
             }
-            
         }
     }
 }
