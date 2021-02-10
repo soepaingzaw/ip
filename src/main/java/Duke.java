@@ -18,6 +18,7 @@ public class Duke {
             System.out.print("_");
         }
 
+
         System.out.print("\n");
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I  do for you?");
@@ -30,44 +31,40 @@ public class Duke {
         Scanner scan = new Scanner(System.in);
 
         //new String[numRowsofData]
-        String[] tasks= new String[ITEMS];
+        String[] tasks = new String[ITEMS];
         String[] checks = new String[ITEMS];
-        String[] type=new String[ITEMS];
-        String[] deadline=new String[ITEMS];
+        String[] type = new String[ITEMS];
+        String[] deadline = new String[ITEMS];
         String[] parts;
 
-        int index=0;
+        int index = 0;
         int count;
         int num;
         int temp;
 
-        while(true) {
+        while (true) {
 
             tasks[index] = scan.nextLine();
             checks[index] = "[ ]";
             parts = tasks[index].split(" ");//splits string into separate parts
 
-            if(parts[0].equals("done")) {
-                temp=Integer.parseInt(parts[1]) - 1;
+            if (parts[0].equals("done")) {
+                temp = Integer.parseInt(parts[1]) - 1;
                 System.out.println("Nice! I've marked this task as done:");
                 checks[temp] = "[✓]";
                 System.out.println(type[temp] + checks[temp] + " " + tasks[temp]);
-            }
-
-            else if (tasks[index].equals("bye")) {
+            } else if (tasks[index].equals("bye")) {
                 System.out.println("BYE! See you again!");
                 break;
-            }
-
-            else if(tasks[index].equals("list")) {
+            } else if (tasks[index].equals("list")) {
                 count = index;
                 num = 0;
 
                 while (count != 0) {
 
                     System.out.println(num + 1 + ". " +
-                            type[num]+ checks[num] + " " + tasks[num]
-                    +deadline[num]);
+                            type[num] + checks[num] + " " + tasks[num]
+                            + deadline[num]);
                     count--;
                     num++;
                 }
@@ -77,38 +74,35 @@ public class Duke {
             else {
 
                 //initialise deadline as empty space
-                deadline[index]=" ";
+                deadline[index] = " ";
 
-                if(parts[0].equals("todo")){
+                if (parts[0].equals("todo")) {
                     //substring to extract out string in concern
                     tasks[index] = tasks[index].substring(5, tasks[index].length());
-                    type[index]="[T]";
-                }
-
-                else if(parts[0].equals("deadline")){
+                    type[index] = "[T]";
+                } else if (parts[0].equals("deadline")) {
 
                     tasks[index] = tasks[index].substring(9, tasks[index].length());
 
-                    type[index]="[D]";
+                    type[index] = "[D]";
 
-                    temp=tasks[index].indexOf('/');
+                    temp = tasks[index].indexOf('/');
 
-                    deadline[index]="(by:"+tasks[index].substring(temp+3,
+                    deadline[index] = "(by:" + tasks[index].substring(temp + 3,
                             tasks[index].length()) + ")";
-                    tasks[index]=tasks[index].substring(0, temp);
+                    tasks[index] = tasks[index].substring(0, temp);
 
-                }
-                else if(parts[0].equals("event")){
+                } else if (parts[0].equals("event")) {
 
                     tasks[index] = tasks[index].substring(6, tasks[index].length());
 
-                    type[index]="[E]";
+                    type[index] = "[E]";
 
-                    temp=tasks[index].indexOf('/');
+                    temp = tasks[index].indexOf('/');
 
-                    deadline[index]="(at:"+tasks[index].substring(temp+3,
+                    deadline[index] = "(at:" + tasks[index].substring(temp + 3,
                             tasks[index].length()) + ")";
-                    tasks[index]=tasks[index].substring(0, temp);
+                    tasks[index] = tasks[index].substring(0, temp);
 
                 }
 
@@ -120,8 +114,8 @@ public class Duke {
 
                 System.out.println("Got it. I've added this task:\n  "
                         + type[index] + checks[index] + " "
-                        + tasks[index] + " " + deadline[index++] +"\n"
-                + "Now you have " + index + " task(s) in the list"  );
+                        + tasks[index] + " " + deadline[index++] + "\n"
+                        + "Now you have " + index + " task(s) in the list");
 
                 for (int i = 0; i < LINES; i++) {
                     System.out.print("_");
