@@ -46,7 +46,7 @@ public class Duke {
             flag = true;
             tasks[index] = scan.nextLine();
             checks[index] = "[ ]";
-            parts = tasks[index].split(" ");//splits string into separate parts
+            parts = tasks[index].split(" ");
 
             if (parts[0].equals("done")) {
                 temp = Integer.parseInt(parts[1]) - 1;
