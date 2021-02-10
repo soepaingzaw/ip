@@ -30,7 +30,6 @@ public class Duke {
         System.out.print("\n");
         Scanner scan = new Scanner(System.in);
 
-        //new String[numRowsofData]
         String[] tasks = new String[ITEMS];
         String[] checks = new String[ITEMS];
         String[] type = new String[ITEMS];
@@ -70,14 +69,12 @@ public class Duke {
                 }
             }
 
-            //Below code increments index as tasks are being added
             else {
 
-                //initialise deadline as empty space
                 deadline[index] = " ";
 
                 if (parts[0].equals("todo")) {
-                    //substring to extract out string in concern
+
                     tasks[index] = tasks[index].substring(5, tasks[index].length());
                     type[index] = "[T]";
                 } else if (parts[0].equals("deadline")) {
