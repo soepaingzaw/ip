@@ -40,9 +40,10 @@ public class Duke {
         int count;
         int num;
         int temp;
+        boolean flag;
 
         while (true) {
-
+            flag = true;
             tasks[index] = scan.nextLine();
             checks[index] = "[ ]";
             parts = tasks[index].split(" ");//splits string into separate parts
@@ -67,16 +68,21 @@ public class Duke {
                     count--;
                     num++;
                 }
-            }
-
-            else {
+            } else {
 
                 deadline[index] = " ";
 
                 if (parts[0].equals("todo")) {
 
-                    tasks[index] = tasks[index].substring(5, tasks[index].length());
-                    type[index] = "[T]";
+                    if (tasks[index].length() == 4) {
+                        flag = false;
+                        System.out.print("OOPS!! The description of a todo cannot be empty.\n");
+
+                    } else {
+
+                        tasks[index] = tasks[index].substring(5, tasks[index].length());
+                        type[index] = "[T]";
+                    }
                 } else if (parts[0].equals("deadline")) {
 
                     tasks[index] = tasks[index].substring(9, tasks[index].length());
@@ -101,24 +107,31 @@ public class Duke {
                             tasks[index].length()) + ")";
                     tasks[index] = tasks[index].substring(0, temp);
 
+                } else {
+                    flag = false;
+
+                    System.out.println("OOPS!! I'm sorry, but I don't know what that means :-(\n");
                 }
 
-                for (int i = 0; i < LINES; i++) {
-                    System.out.print("_");
+                if (flag) {
+
+                    for (int i = 0; i < LINES; i++) {
+                        System.out.print("_");
+                    }
+
+                    System.out.print("\n");
+
+                    System.out.println("Got it. I've added this task:\n  "
+                            + type[index] + checks[index] + " "
+                            + tasks[index] + " " + deadline[index++] + "\n"
+                            + "Now you have " + index + " task(s) in the list");
+
+                    for (int i = 0; i < LINES; i++) {
+                        System.out.print("_");
+                    }
+
+                    System.out.print("\n");
                 }
-
-                System.out.print("\n");
-
-                System.out.println("Got it. I've added this task:\n  "
-                        + type[index] + checks[index] + " "
-                        + tasks[index] + " " + deadline[index++] + "\n"
-                        + "Now you have " + index + " task(s) in the list");
-
-                for (int i = 0; i < LINES; i++) {
-                    System.out.print("_");
-                }
-
-                System.out.print("\n");
 
             }
         }
