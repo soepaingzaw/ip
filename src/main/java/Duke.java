@@ -67,11 +67,28 @@ public class Duke {
                     count--;
                     num++;
                 }
+            } else if (parts[0].equals("delete")) {
+                int newIndex = Integer.parseInt(parts[1]) - 1;
+                int tempIndex = index - 1;
+
+                System.out.print("Noted. I've removed this task:\n  " + type[newIndex] + checks[newIndex] + " "
+                        + tasks[newIndex] + " " + deadline[newIndex] + "\n"
+                        + "Now you have " + tempIndex + " task(s) in the list\n");
+
+                index--;
+
+                for (int i = newIndex; i < index; i++) {
+                    type[i] = type[i + 1];
+                    checks[i] = checks[i + 1];
+                    tasks[i] = tasks[i + 1];
+                }
+
             }
 
             //Below code increments index as tasks are being added
             else {
-                
+
+                //initialise deadline as empty space
                 deadline[index] = " ";
 
                 if (parts[0].equals("todo")) {
