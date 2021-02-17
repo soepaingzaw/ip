@@ -71,8 +71,7 @@ public class Duke {
 
             //Below code increments index as tasks are being added
             else {
-
-                //initialise deadline as empty space
+                
                 deadline[index] = " ";
 
                 if (parts[0].equals("todo")) {
