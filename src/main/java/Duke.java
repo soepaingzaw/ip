@@ -100,6 +100,13 @@ public class Duke {
 
     public static void deadline() throws DukeException{
         int indexOfSlash = line.indexOf('/');
+        if(line.length()==8) {
+            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.\n");
+        } else if (!(indexOfSlash>0)) {
+            throw new DukeException("☹ ERROR!! Please input TASK, DAY and TIME using the following format:\n" +
+                    "deadline [TASK] /by [DAY] [TIME].\n");
+        }
+
         tasks[index++] = new Deadline(line.substring(9, indexOfSlash), line.substring(indexOfSlash + 3));
         addToTaskMessage();
         printNumberOfTask();
