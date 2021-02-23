@@ -53,29 +53,35 @@ public class Duke {
             line = scan.nextLine();
             String[] word = line.split(" ");
 
-            switch (word[0]) {
+            try {
 
-            case "bye":
-                bye();
-                break;
-            case "done":
-                done();
-                break;
-            case "list":
-                list();
-                break;
-            case "todo":
-                todo();
-                break;
-            case "deadline":
-                deadline();
-                break;
-            case "event":
-                event();
-               break;
+                switch (word[0]) {
 
-            default:
-                //new DukeException("I am Sorry I dont know what that means :( \n");
+                case "bye":
+                    bye();
+                    break;
+                case "done":
+                    done();
+                    break;
+                case "list":
+                    list();
+                    break;
+                case "todo":
+                    todo();
+                    break;
+                case "deadline":
+                    deadline();
+                    break;
+                case "event":
+                    event();
+                    break;
+
+                default:
+                    throw new DukeException();
+                }
+
+            } catch (DukeException e) {
+                System.out.print(e.getMessage());
             }
 
 
@@ -83,20 +89,23 @@ public class Duke {
 
     }
 
-    public static void todo() {
+    public static void todo() throws DukeException{
+        if(line.length()==4) {
+            throw new DukeException("Oops the description of a todo cannot be empty\n");
+        }
         tasks[index++] = new Todo(line.substring(5));
         addToTaskMessage();
         printNumberOfTask();
     }
 
-    public static void deadline() {
+    public static void deadline() throws DukeException{
         int indexOfSlash = line.indexOf('/');
         tasks[index++] = new Deadline(line.substring(9, indexOfSlash), line.substring(indexOfSlash + 3));
         addToTaskMessage();
         printNumberOfTask();
     }
 
-    public static void event() {
+    public static void event()  throws DukeException{
         int indexOfSlash = line.indexOf('/');
         tasks[index++] = new Event(line.substring(6, indexOfSlash), line.substring(indexOfSlash + 3));
         addToTaskMessage();
