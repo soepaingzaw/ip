@@ -46,35 +46,44 @@ public class Duke {
 
         int index = 0;
         int done = 0;
+        boolean flag = true;
 
-        while (true) {
+        do {
 
             Scanner scan = new Scanner(System.in);
             String line = scan.nextLine();
+            String[] word = line.split(" ");
 
-            if (line.equals("bye")) {
+            switch (word[0]) {
+
+            case "bye":
                 System.out.print("Bye. Hope to see you again soon!\n");
+                flag = false;
                 break;
-            } else if (line.startsWith("done")) {
+            case "done":
                 done = Integer.parseInt(line.substring(5));
-                tasks[done-1].markAsDone();
+                tasks[done - 1].markAsDone();
                 System.out.print("Nice! I've marked this task as done:\n" +
-                        tasks[done-1].print());
+                        tasks[done - 1].print());
+                break;
 
-            } else if (line.equals("list")) {
+            case "list":
                 System.out.print("Here are the tasks in your list:\n");
                 for (int i = 0; i < index; i++) {
-                    System.out.printf("%d." + tasks[i].print(),i+1);
+                    System.out.printf("%d." + tasks[i].print(), i + 1);
                 }
-            } else {
-
+                break;
+            default:
                 tasks[index++] = new Task(line);
             }
 
-        }
+
+        } while (flag);
 
     }
+
 }
+
 
 
 
