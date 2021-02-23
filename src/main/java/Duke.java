@@ -78,19 +78,19 @@ public class Duke {
             case "todo":
 
                 tasks[index++] = new Todo(line.substring(5));
-                System.out.print("Got it! I have added this task:\n" + tasks[index-1].toString() + "\n");
+                System.out.print("Got it! I have added this task:\n" + tasks[index - 1].toString() + "\n");
                 break;
 
             case "deadline":
 
                 indexOfSlash = line.indexOf('/');
-                tasks[index++] = new Deadline(line.substring(9,indexOfSlash),line.substring(indexOfSlash+3));
-                System.out.print("Got it! I have added this task:\n" + tasks[index-1].toString() + "\n");
+                tasks[index++] = new Deadline(line.substring(9, indexOfSlash), line.substring(indexOfSlash + 3));
+                System.out.print("Got it! I have added this task:\n" + tasks[index - 1].toString() + "\n");
                 break;
-            case "event" :
+            case "event":
                 indexOfSlash = line.indexOf('/');
-                tasks[index++] = new Event(line.substring(6,indexOfSlash),line.substring(indexOfSlash+3));
-                System.out.print("Got it! I have added this task:\n" + tasks[index-1].toString() + "\n");
+                tasks[index++] = new Event(line.substring(6, indexOfSlash), line.substring(indexOfSlash + 3));
+                System.out.print("Got it! I have added this task:\n" + tasks[index - 1].toString() + "\n");
                 break;
 
 
