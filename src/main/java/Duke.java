@@ -4,11 +4,16 @@ import java.util.ArrayList;
 public class Duke {
 
     static final int LINES = 85;
-    //static final int INPUTS = 100;
+    static final int LENGTH_OF_TODO = 4;
+    static final int LENGTH_OF_DEADLINE = 8;
+    static final int LENGTH_OF_EVENT = 5;
+    static final int LENGTH_OF_DONE = 4;
+    static final int SPACES_AFTER_SLASH = 3;
+
     public static int index = 0;
     public static String line;
     public static boolean continueInputs = true;
-    //public static Task[] tasks = new Task[INPUTS];
+
     public static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -91,38 +96,43 @@ public class Duke {
     }
 
     public static void todo() throws DukeException {
-        if (line.length() == 4) {
+        if (line.length() == LENGTH_OF_TODO) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.\n");
+
         }
-        tasks.add(new Todo(line.substring(5)));
+        tasks.add(new Todo(line.substring(LENGTH_OF_TODO + 1)));
         addToTaskMessage();
         printNumberOfTask();
     }
 
     public static void deadline() throws DukeException {
         int indexOfSlash = line.indexOf('/');
-        if (line.length() == 8) {
+
+        if (line.length() == LENGTH_OF_DEADLINE) {
             throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.\n");
-        } else if (!(indexOfSlash > 0)) {
+
+        } else if (indexOfSlash == -1) {
             throw new DukeException("☹ ERROR!! Please input TASK, DAY and TIME using the following format:\n" +
                     "deadline [TASK] /by [DAY] [TIME].\n");
+
         }
-        tasks.add(new Deadline(line.substring(9, indexOfSlash), line.substring(indexOfSlash + 3)));
-        //tasks[index++] = new Deadline(line.substring(9, indexOfSlash), line.substring(indexOfSlash + 3));
+        tasks.add(new Deadline(line.substring(LENGTH_OF_DEADLINE + 1, indexOfSlash), line.substring(indexOfSlash + SPACES_AFTER_SLASH)));
         addToTaskMessage();
         printNumberOfTask();
     }
 
     public static void event() throws DukeException {
         int indexOfSlash = line.indexOf('/');
-        if (line.length() == 5) {
+        if (line.length() == LENGTH_OF_EVENT) {
             throw new DukeException("☹ OOPS!!! The description of a event cannot be empty.\n");
-        } else if (!(indexOfSlash > 0)) {
+
+        } else if (indexOfSlash == -1) {
             throw new DukeException("☹ ERROR!! Please input TASK, DAY and TIME using the following format:\n" +
                     "event [TASK] /at [DAY] [TIME].\n");
+
         }
-        tasks.add(new Event(line.substring(6, indexOfSlash), line.substring(indexOfSlash + 3)));
-        //tasks[index++] = new Event(line.substring(6, indexOfSlash), line.substring(indexOfSlash + 3));
+
+        tasks.add(new Event(line.substring(LENGTH_OF_EVENT + 1, indexOfSlash), line.substring(indexOfSlash + SPACES_AFTER_SLASH)));
         addToTaskMessage();
         printNumberOfTask();
     }
@@ -134,11 +144,10 @@ public class Duke {
             System.out.printf("%d." + tasks.get(i).toString() + "\n", i + 1);
         }
 
-
     }
 
     public static void done() {
-        int order = Integer.parseInt(line.substring(5));
+        int order = Integer.parseInt(line.substring(LENGTH_OF_DONE + 1));
         tasks.get(order - 1).markAsDone();
         System.out.print("Nice! I've marked this task as done:\n" +
                 tasks.get(order - 1).toString() + "\n");
