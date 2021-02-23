@@ -9,6 +9,7 @@ public class Duke {
     static final int LENGTH_OF_EVENT = 5;
     static final int LENGTH_OF_DONE = 4;
     static final int SPACES_AFTER_SLASH = 3;
+    static final int LENGTH_OF_DELETE = 6;
 
     public static int index = 0;
     public static String line;
@@ -80,6 +81,9 @@ public class Duke {
                     break;
                 case "event":
                     event();
+                    break;
+                case "delete":
+                    delete();
                     break;
 
                 default:
@@ -166,6 +170,17 @@ public class Duke {
 
     public static void printNumberOfTask() {
         System.out.printf("Now you have %d task(s) in the list.\n", index);
+
+    }
+
+    public static void delete() {
+        int order = Integer.parseInt(line.substring(LENGTH_OF_DELETE + 1));
+        System.out.print("Noted. I've removed this task:\n" +
+                tasks.get(order - 1).toString() + "\n");
+
+        tasks.remove(order - 1);
+        index--;
+        printNumberOfTask();
 
     }
 
