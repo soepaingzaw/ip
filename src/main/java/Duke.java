@@ -91,7 +91,7 @@ public class Duke {
 
     public static void todo() throws DukeException{
         if(line.length()==4) {
-            throw new DukeException("Oops the description of a todo cannot be empty\n");
+            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.\n");
         }
         tasks[index++] = new Todo(line.substring(5));
         addToTaskMessage();
