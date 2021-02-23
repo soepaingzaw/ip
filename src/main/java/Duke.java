@@ -4,7 +4,9 @@ public class Duke {
 
     static final int LINES = 85;
     static final int INPUTS = 100;
-
+    public static int index = 0;
+    public static String line;
+    public static boolean continueInputs = true;
     public static Task[] tasks = new Task[INPUTS];
 
     public static void main(String[] args) {
@@ -42,66 +44,89 @@ public class Duke {
 
     }
 
-    public static void receiveInputs() {
-
-        int index = 0;
-        int order;
-        boolean continueInputs = true;
+    public static void receiveInputs()  {
 
         do {
+            printDivider();
 
             Scanner scan = new Scanner(System.in);
-            String line = scan.nextLine();
+            line = scan.nextLine();
             String[] word = line.split(" ");
-            int indexOfSlash;
 
             switch (word[0]) {
 
             case "bye":
-                System.out.print("Bye. Hope to see you again soon!\n");
-                continueInputs = false;
+                bye();
                 break;
             case "done":
-                order = Integer.parseInt(line.substring(5));
-                tasks[order - 1].markAsDone();
-                System.out.print("Nice! I've marked this task as done:\n" +
-                        tasks[order - 1].toString() + "\n");
+                done();
                 break;
-
             case "list":
-                System.out.print("Here are the tasks in your list:\n");
-                for (int i = 0; i < index; i++) {
-                    System.out.printf("%d." + tasks[i].toString() + "\n", i + 1);
-                }
+                list();
                 break;
-
             case "todo":
-
-                tasks[index++] = new Todo(line.substring(5));
-                System.out.print("Got it! I have added this task:\n" + tasks[index - 1].toString() + "\n");
+                todo();
                 break;
-
             case "deadline":
-
-                indexOfSlash = line.indexOf('/');
-                tasks[index++] = new Deadline(line.substring(9, indexOfSlash), line.substring(indexOfSlash + 3));
-                System.out.print("Got it! I have added this task:\n" + tasks[index - 1].toString() + "\n");
+                deadline();
                 break;
             case "event":
-                indexOfSlash = line.indexOf('/');
-                tasks[index++] = new Event(line.substring(6, indexOfSlash), line.substring(indexOfSlash + 3));
-                System.out.print("Got it! I have added this task:\n" + tasks[index - 1].toString() + "\n");
-                break;
-
+                event();
+               break;
 
             default:
-                tasks[index++] = new Task(line);
-                System.out.print("Great! I have added: " + line + "\n");
+                //new DukeException("I am Sorry I dont know what that means :( \n");
             }
 
 
         } while (continueInputs);
 
+    }
+
+    public static void todo() {
+        tasks[index++] = new Todo(line.substring(5));
+        addToTaskMessage();
+        printNumberOfTask();
+    }
+
+    public static void deadline() {
+        int indexOfSlash = line.indexOf('/');
+        tasks[index++] = new Deadline(line.substring(9, indexOfSlash), line.substring(indexOfSlash + 3));
+        addToTaskMessage();
+        printNumberOfTask();
+    }
+
+    public static void event() {
+        int indexOfSlash = line.indexOf('/');
+        tasks[index++] = new Event(line.substring(6, indexOfSlash), line.substring(indexOfSlash + 3));
+        addToTaskMessage();
+        printNumberOfTask();
+    }
+
+    public static void list() {
+        System.out.print("Here are the tasks in your list:\n");
+        for (int i = 0; i < index; i++) {
+            System.out.printf("%d." + tasks[i].toString() + "\n", i + 1);
+        }
+    }
+
+    public static void done() {
+        int order = Integer.parseInt(line.substring(5));
+        tasks[order - 1].markAsDone();
+        System.out.print("Nice! I've marked this task as done:\n" +
+                tasks[order - 1].toString() + "\n");
+    }
+    public static void bye() {
+        System.out.print("Bye. Hope to see you again soon!\n");
+        continueInputs = false;
+    }
+
+    public static void addToTaskMessage() {
+        System.out.print("Got it! I have added this task:\n" + tasks[index - 1].toString() + "\n");
+    }
+
+    public static void printNumberOfTask() {
+        System.out.printf("Now you have %d task(s) in the list.\n",index);
     }
 
 }
