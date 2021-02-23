@@ -102,7 +102,7 @@ public class Duke {
         int indexOfSlash = line.indexOf('/');
         if(line.length()==8) {
             throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.\n");
-        } else if (!(indexOfSlash>0)) {
+        } else if (!(indexOfSlash>-1)) {
             throw new DukeException("☹ ERROR!! Please input TASK, DAY and TIME using the following format:\n" +
                     "deadline [TASK] /by [DAY] [TIME].\n");
         }
@@ -114,6 +114,13 @@ public class Duke {
 
     public static void event()  throws DukeException{
         int indexOfSlash = line.indexOf('/');
+        if(line.length()==5) {
+            throw new DukeException("☹ OOPS!!! The description of a event cannot be empty.\n");
+        } else if (!(indexOfSlash>-1)) {
+            throw new DukeException("☹ ERROR!! Please input TASK, DAY and TIME using the following format:\n" +
+                    "event [TASK] /at [DAY] [TIME].\n");
+        }
+
         tasks[index++] = new Event(line.substring(6, indexOfSlash), line.substring(indexOfSlash + 3));
         addToTaskMessage();
         printNumberOfTask();
