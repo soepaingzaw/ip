@@ -15,7 +15,6 @@ public class Duke {
         printDivider();
         greetUserForTask();
         receiveInputs();
-
     }
 
     public static void printWelcomeMessage() {
@@ -44,7 +43,7 @@ public class Duke {
 
     }
 
-    public static void receiveInputs()  {
+    public static void receiveInputs() {
 
         do {
             printDivider();
@@ -89,8 +88,8 @@ public class Duke {
 
     }
 
-    public static void todo() throws DukeException{
-        if(line.length()==4) {
+    public static void todo() throws DukeException {
+        if (line.length() == 4) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.\n");
         }
         tasks[index++] = new Todo(line.substring(5));
@@ -98,11 +97,11 @@ public class Duke {
         printNumberOfTask();
     }
 
-    public static void deadline() throws DukeException{
+    public static void deadline() throws DukeException {
         int indexOfSlash = line.indexOf('/');
-        if(line.length()==8) {
+        if (line.length() == 8) {
             throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.\n");
-        } else if (!(indexOfSlash>-1)) {
+        } else if (!(indexOfSlash > -1)) {
             throw new DukeException("☹ ERROR!! Please input TASK, DAY and TIME using the following format:\n" +
                     "deadline [TASK] /by [DAY] [TIME].\n");
         }
@@ -112,11 +111,11 @@ public class Duke {
         printNumberOfTask();
     }
 
-    public static void event()  throws DukeException{
+    public static void event() throws DukeException {
         int indexOfSlash = line.indexOf('/');
-        if(line.length()==5) {
+        if (line.length() == 5) {
             throw new DukeException("☹ OOPS!!! The description of a event cannot be empty.\n");
-        } else if (!(indexOfSlash>-1)) {
+        } else if (!(indexOfSlash > -1)) {
             throw new DukeException("☹ ERROR!! Please input TASK, DAY and TIME using the following format:\n" +
                     "event [TASK] /at [DAY] [TIME].\n");
         }
@@ -139,6 +138,7 @@ public class Duke {
         System.out.print("Nice! I've marked this task as done:\n" +
                 tasks[order - 1].toString() + "\n");
     }
+
     public static void bye() {
         System.out.print("Bye. Hope to see you again soon!\n");
         continueInputs = false;
@@ -149,7 +149,7 @@ public class Duke {
     }
 
     public static void printNumberOfTask() {
-        System.out.printf("Now you have %d task(s) in the list.\n",index);
+        System.out.printf("Now you have %d task(s) in the list.\n", index);
     }
 
 }
