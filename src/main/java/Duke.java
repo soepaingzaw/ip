@@ -45,8 +45,8 @@ public class Duke {
     public static void receiveInputs() {
 
         int index = 0;
-        int done = 0;
-        boolean flag = true;
+        int order;
+        boolean continueInputs = true;
 
         do {
 
@@ -58,13 +58,13 @@ public class Duke {
 
             case "bye":
                 System.out.print("Bye. Hope to see you again soon!\n");
-                flag = false;
+                continueInputs = false;
                 break;
             case "done":
-                done = Integer.parseInt(line.substring(5));
-                tasks[done - 1].markAsDone();
+                order = Integer.parseInt(line.substring(5));
+                tasks[order - 1].markAsDone();
                 System.out.print("Nice! I've marked this task as done:\n" +
-                        tasks[done - 1].print());
+                        tasks[order - 1].print());
                 break;
 
             case "list":
@@ -73,12 +73,14 @@ public class Duke {
                     System.out.printf("%d." + tasks[i].print(), i + 1);
                 }
                 break;
+
             default:
                 tasks[index++] = new Task(line);
+                System.out.print("Great! I have added: " + line + "\n");
             }
 
 
-        } while (flag);
+        } while (continueInputs);
 
     }
 
