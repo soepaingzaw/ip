@@ -18,12 +18,12 @@ public class Duke {
         printWelcomeMessage();
         printDivider();
         greetUserForTask();
-        try {
-            loadFromFile("mytask.txt");
-        } catch (FileNotFoundException e) {
-            System.out.print("File not found\n");
-        }
 
+        try{
+            loadFromFile("mytasks.txt");
+        } catch (FileNotFoundException e) {
+            System.out.print("Error!!! No file found to import. Create new file!\n");
+        }
         receiveInputs();
     }
 
@@ -63,6 +63,7 @@ public class Duke {
             String[] word = line.split(" ");
 
             try {
+
 
                 switch (word[0]) {
 
@@ -141,12 +142,12 @@ public class Duke {
 
 
     public static String list() {
-        String listOfTasks = new String();
+        StringBuilder listOfTasks = new StringBuilder();
         for (int i = 0; i < index; i++) {
-            listOfTasks += (i+1) + "." + tasks.get(i).toString() + "\n";
+            listOfTasks.append(i + 1).append(".").append(tasks.get(i).toString()).append("\n");
         }
 
-        return listOfTasks;
+        return listOfTasks.toString();
     }
 
     public static void done() {
@@ -176,16 +177,40 @@ public class Duke {
         fw.close();
     }
 
-    public static void loadFromFile (String filepath) throws FileNotFoundException {
+    public static void loadFromFile(String filepath) throws FileNotFoundException {
         File f = new File(filepath);
         Scanner scan = new Scanner(f);
+
         while (scan.hasNext()) {
+            String textString = scan.nextLine();
+            char taskType = textString.charAt(3);
+            char doneOrNot = textString.charAt(6);
+            int indexOfOpenBracket = textString.indexOf('(');
+            int indexOfCloseBracket = textString.indexOf(')');
 
+            switch (taskType) {
+
+            case 'T':
+                tasks.add(new Todo(textString.substring(9)));
+                break;
+            case 'E':
+                tasks.add(new Event(textString.substring(9, indexOfOpenBracket),
+                        textString.substring(indexOfOpenBracket + 4, indexOfCloseBracket)));
+                break;
+            case 'D':
+                tasks.add(new Deadline(textString.substring(9, indexOfOpenBracket),
+                        textString.substring(indexOfOpenBracket + 4, indexOfCloseBracket)));
+                break;
+            default:
+                break;
+            }
+
+            if (doneOrNot == '\u2713') {
+                tasks.get(index).markAsDone();
+            }
+            index++;
         }
-
-
     }
-
 }
 
 
