@@ -1,5 +1,10 @@
-import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.File;
+
 
 public class Duke {
 
@@ -22,6 +27,12 @@ public class Duke {
         printWelcomeMessage();
         printDivider();
         greetUserForTask();
+
+        try {
+            loadFromFile("mytasks.txt");
+        } catch (FileNotFoundException e) {
+            System.out.print("Warning!!! No file found to import. Creating new file...\n");
+        }
         receiveInputs();
     }
 
@@ -62,6 +73,7 @@ public class Duke {
 
             try {
 
+
                 switch (word[0]) {
 
                 case "bye":
@@ -71,7 +83,7 @@ public class Duke {
                     done();
                     break;
                 case "list":
-                    list();
+                    System.out.print("Here are the tasks in your list:\n" + list());
                     break;
                 case "todo":
                     todo();
@@ -90,8 +102,12 @@ public class Duke {
                     throw new DukeException();
                 }
 
+                writeToFile();
+
             } catch (DukeException e) {
                 System.out.print(e.getMessage());
+            } catch (IOException e) {
+                System.out.print("File ERRORRR!!\n");
             }
 
 
@@ -119,8 +135,10 @@ public class Duke {
             throw new DukeException("☹ ERROR!! Please input TASK, DAY and TIME using the following format:\n" +
                     "deadline [TASK] /by [DAY] [TIME].\n");
 
+
         }
         tasks.add(new Deadline(line.substring(LENGTH_OF_DEADLINE + 1, indexOfSlash), line.substring(indexOfSlash + SPACES_AFTER_SLASH)));
+
         addToTaskMessage();
         printNumberOfTask();
     }
@@ -135,23 +153,24 @@ public class Duke {
                     "event [TASK] /at [DAY] [TIME].\n");
 
         }
-
         tasks.add(new Event(line.substring(LENGTH_OF_EVENT + 1, indexOfSlash), line.substring(indexOfSlash + SPACES_AFTER_SLASH)));
+
         addToTaskMessage();
         printNumberOfTask();
     }
 
-    public static void list() {
-        System.out.print("Here are the tasks in your list:\n");
-
+    public static String list() {
+        StringBuilder listOfTasks = new StringBuilder();
         for (int i = 0; i < index; i++) {
-            System.out.printf("%d." + tasks.get(i).toString() + "\n", i + 1);
+            listOfTasks.append(i + 1).append(".").append(tasks.get(i).toString()).append("\n");
         }
 
+        return listOfTasks.toString();
     }
 
     public static void done() {
         int order = Integer.parseInt(line.substring(LENGTH_OF_DONE + 1));
+
         tasks.get(order - 1).markAsDone();
         System.out.print("Nice! I've marked this task as done:\n" +
                 tasks.get(order - 1).toString() + "\n");
@@ -181,9 +200,48 @@ public class Duke {
         tasks.remove(order - 1);
         index--;
         printNumberOfTask();
-
     }
 
+    public static void writeToFile() throws IOException {
+        FileWriter fw = new FileWriter("mytasks.txt");
+        fw.write(list());
+        fw.close();
+    }
+
+    public static void loadFromFile(String filepath) throws FileNotFoundException {
+        File f = new File(filepath);
+        Scanner scan = new Scanner(f);
+
+        while (scan.hasNext()) {
+            String textString = scan.nextLine();
+            char taskType = textString.charAt(3);
+            char doneOrNot = textString.charAt(6);
+            int indexOfOpenBracket = textString.indexOf('(');
+            int indexOfCloseBracket = textString.indexOf(')');
+
+            switch (taskType) {
+
+            case 'T':
+                tasks.add(new Todo(textString.substring(9)));
+                break;
+            case 'E':
+                tasks.add(new Event(textString.substring(9, indexOfOpenBracket),
+                        textString.substring(indexOfOpenBracket + 4, indexOfCloseBracket)));
+                break;
+            case 'D':
+                tasks.add(new Deadline(textString.substring(9, indexOfOpenBracket),
+                        textString.substring(indexOfOpenBracket + 4, indexOfCloseBracket)));
+                break;
+            default:
+                break;
+            }
+
+            if (doneOrNot == '\u2713') {
+                tasks.get(index).markAsDone();
+            }
+            index++;
+        }
+    }
 }
 
 
