@@ -1,19 +1,29 @@
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
 
 public class Duke {
 
     static final int LINES = 85;
-    static final int INPUTS = 100;
     public static int index = 0;
     public static String line;
     public static boolean continueInputs = true;
-    public static Task[] tasks = new Task[INPUTS];
+    public static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
 
         printWelcomeMessage();
         printDivider();
         greetUserForTask();
+        try {
+            loadFromFile("mytask.txt");
+        } catch (FileNotFoundException e) {
+            System.out.print("File not found\n");
+        }
+
         receiveInputs();
     }
 
@@ -63,7 +73,7 @@ public class Duke {
                     done();
                     break;
                 case "list":
-                    list();
+                    System.out.print("Here are the tasks in your list:\n" + list());
                     break;
                 case "todo":
                     todo();
@@ -79,8 +89,12 @@ public class Duke {
                     throw new DukeException();
                 }
 
+                writeToFile();
+
             } catch (DukeException e) {
                 System.out.print(e.getMessage());
+            } catch (IOException e) {
+                System.out.print("File ERRORRR!!\n");
             }
 
 
@@ -92,7 +106,7 @@ public class Duke {
         if (line.length() == 4) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.\n");
         }
-        tasks[index++] = new Todo(line.substring(5));
+        tasks.add(new Todo(line.substring(5)));
         addToTaskMessage();
         printNumberOfTask();
     }
@@ -106,7 +120,7 @@ public class Duke {
                     "deadline [TASK] /by [DAY] [TIME].\n");
         }
 
-        tasks[index++] = new Deadline(line.substring(9, indexOfSlash), line.substring(indexOfSlash + 3));
+        tasks.add(new Deadline(line.substring(9, indexOfSlash), line.substring(indexOfSlash + 3)));
         addToTaskMessage();
         printNumberOfTask();
     }
@@ -120,23 +134,26 @@ public class Duke {
                     "event [TASK] /at [DAY] [TIME].\n");
         }
 
-        tasks[index++] = new Event(line.substring(6, indexOfSlash), line.substring(indexOfSlash + 3));
+        tasks.add(new Event(line.substring(6, indexOfSlash), line.substring(indexOfSlash + 3)));
         addToTaskMessage();
         printNumberOfTask();
     }
 
-    public static void list() {
-        System.out.print("Here are the tasks in your list:\n");
+
+    public static String list() {
+        String listOfTasks = new String();
         for (int i = 0; i < index; i++) {
-            System.out.printf("%d." + tasks[i].toString() + "\n", i + 1);
+            listOfTasks += (i+1) + "." + tasks.get(i).toString() + "\n";
         }
+
+        return listOfTasks;
     }
 
     public static void done() {
         int order = Integer.parseInt(line.substring(5));
-        tasks[order - 1].markAsDone();
+        tasks.get(order - 1).markAsDone();
         System.out.print("Nice! I've marked this task as done:\n" +
-                tasks[order - 1].toString() + "\n");
+                tasks.get(order - 1).toString() + "\n");
     }
 
     public static void bye() {
@@ -145,11 +162,28 @@ public class Duke {
     }
 
     public static void addToTaskMessage() {
-        System.out.print("Got it! I have added this task:\n" + tasks[index - 1].toString() + "\n");
+        index++;
+        System.out.print("Got it! I have added this task:\n" + tasks.get(index - 1).toString() + "\n");
     }
 
     public static void printNumberOfTask() {
         System.out.printf("Now you have %d task(s) in the list.\n", index);
+    }
+
+    public static void writeToFile() throws IOException {
+        FileWriter fw = new FileWriter("mytasks.txt");
+        fw.write(list());
+        fw.close();
+    }
+
+    public static void loadFromFile (String filepath) throws FileNotFoundException {
+        File f = new File(filepath);
+        Scanner scan = new Scanner(f);
+        while (scan.hasNext()) {
+
+        }
+
+
     }
 
 }
