@@ -22,7 +22,7 @@ public class Duke {
         try{
             loadFromFile("mytasks.txt");
         } catch (FileNotFoundException e) {
-            System.out.print("Error!!! No file found to import. Create new file!\n");
+            System.out.print("Warning!!! No file found to import. Creating new file...\n");
         }
         receiveInputs();
     }
