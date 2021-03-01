@@ -20,7 +20,36 @@ public class Duke {
     public static String line;
     public static boolean continueInputs = true;
 
+
     public static ArrayList<Task> tasks = new ArrayList<>();
+
+    //private Storage storage;
+   // private TaskList tasks;
+    private Ui ui;
+
+    public Duke(String filePath) {
+        ui = new Ui();
+        try {
+            loadFromFile(filePath);
+        }  catch (FileNotFoundException e) {
+            System.out.print("Warning!!! No file found to import. Creating new file...\n");
+        }
+        //storage = new Storage(filePath);
+       // try {
+           // tasks = new TaskList(storage.load());
+      /* } catch (DukeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+
+       */
+    }
+
+    public static void main(String[] args) {
+        new Duke("mytasks.txt").run();
+    }
+
+/*
 
     public static void main(String[] args) {
 
@@ -35,18 +64,8 @@ public class Duke {
         }
         receiveInputs();
     }
+*/
 
-    public static void printWelcomeMessage() {
-
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-
-        System.out.print("Hello from\n" + logo);
-
-    }
 
     public static void printDivider() {
         for (int i = 0; i < LINES; i++) {
@@ -56,13 +75,9 @@ public class Duke {
 
     }
 
-    public static void greetUserForTask() {
-        System.out.print("Hello! I'm Duke\n");
-        System.out.print("What can I do for you?\n");
 
-    }
 
-    public static void receiveInputs() {
+    public static void run() {
 
         do {
             printDivider();
