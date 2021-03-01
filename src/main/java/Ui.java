@@ -22,4 +22,8 @@ public class Ui {
         System.out.print("What can I do for you?\n");
 
     }
+
+    public static void showLoadingError() {
+        System.out.print("Warning!!! No file found to import. Creating new file...\n");
+    }
 }

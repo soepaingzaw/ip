@@ -31,12 +31,16 @@ public class Duke {
         ui = new Ui();
         try {
             loadFromFile(filePath);
+            //storage = new Storage();
+            //tasks = new ArrayList<>();
+
         }  catch (FileNotFoundException e) {
-            System.out.print("Warning!!! No file found to import. Creating new file...\n");
+            ui.showLoadingError();
+
         }
         //storage = new Storage(filePath);
-       // try {
-           // tasks = new TaskList(storage.load());
+        // try {
+        // tasks = new TaskList(storage.load());
       /* } catch (DukeException e) {
             ui.showLoadingError();
             tasks = new TaskList();
@@ -48,23 +52,6 @@ public class Duke {
     public static void main(String[] args) {
         new Duke("mytasks.txt").run();
     }
-
-/*
-
-    public static void main(String[] args) {
-
-        printWelcomeMessage();
-        printDivider();
-        greetUserForTask();
-
-        try {
-            loadFromFile("mytasks.txt");
-        } catch (FileNotFoundException e) {
-            System.out.print("Warning!!! No file found to import. Creating new file...\n");
-        }
-        receiveInputs();
-    }
-*/
 
 
     public static void printDivider() {
