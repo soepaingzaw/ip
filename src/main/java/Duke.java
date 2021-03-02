@@ -15,6 +15,7 @@ public class Duke {
     static final int LENGTH_OF_DONE = 4;
     static final int SPACES_AFTER_SLASH = 3;
     static final int LENGTH_OF_DELETE = 6;
+    static final int LENGTH_OF_FIND = 4;
 
     public static int index = 0;
     public static String line;
@@ -23,30 +24,18 @@ public class Duke {
 
     public static ArrayList<Task> tasks = new ArrayList<>();
 
-    //private Storage storage;
-   // private TaskList tasks;
     private Ui ui;
 
     public Duke(String filePath) {
         ui = new Ui();
         try {
             loadFromFile(filePath);
-            //storage = new Storage();
-            //tasks = new ArrayList<>();
 
         }  catch (FileNotFoundException e) {
             ui.showLoadingError();
 
         }
-        //storage = new Storage(filePath);
-        // try {
-        // tasks = new TaskList(storage.load());
-      /* } catch (DukeException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
-        }
 
-       */
     }
 
     public static void main(String[] args) {
@@ -99,7 +88,9 @@ public class Duke {
                 case "delete":
                     delete();
                     break;
-
+                case "find":
+                    find();
+                    break;
                 default:
                     throw new DukeException();
                 }
@@ -202,6 +193,37 @@ public class Duke {
         tasks.remove(order - 1);
         index--;
         printNumberOfTask();
+    }
+
+    public static void find() throws DukeException {
+
+        int numeration=0;
+        String listOfTasks;
+        String matchingWord = line.substring(LENGTH_OF_FIND + 1);
+
+        ArrayList<String> matchedTask = new ArrayList<>() ;
+
+        for(int i=0;i<index;i++) {
+
+            listOfTasks= tasks.get(i).toString();
+
+            if (listOfTasks.contains(matchingWord)) {
+                numeration++;
+                matchedTask.add(listOfTasks);
+            }
+
+        }
+        if (numeration==0) {
+            throw new DukeException("There are no matching tasks found\n");
+        }
+        System.out.print("Here are the matching tasks in your list:\n");
+
+        for(int order=0;order<numeration;order++){
+            System.out.printf("%d." + matchedTask.get(order) + "\n",order+1);
+        }
+
+
+
     }
 
     public static void writeToFile() throws IOException {
