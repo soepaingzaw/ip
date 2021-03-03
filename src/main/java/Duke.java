@@ -90,6 +90,9 @@ public class Duke {
                 case "delete":
                     delete();
                     break;
+                case "find":
+                    find();
+                    break;
                 default:
                     throw new DukeException();
                 }
@@ -218,6 +221,11 @@ public class Duke {
         printNumberOfTask();
     }
 
+    /**Performs steps to find matching words in the existing
+     *list of tasks
+     *
+     * @throws DukeException if there are no matching words to be found
+     */
     public static void find() throws DukeException {
 
         int numeration = 0;
@@ -247,6 +255,7 @@ public class Duke {
 
 
     }
+
     /**Saves current state of tasks in a textfile
      *
      * @throws IOException as a safe guard
