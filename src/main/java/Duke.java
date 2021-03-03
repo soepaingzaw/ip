@@ -123,6 +123,7 @@ public class Duke {
         printNumberOfTask();
     }
 
+
     /**deadline creates a new deadline object. The deadline class
      * is the subclass of the Task class
      * it takes in the description of the deadline as well as the
@@ -218,10 +219,41 @@ public class Duke {
     }
 
 
+
     /**Saves current state of tasks in a textfile
      *
      * @throws IOException as a safe guard
      */
+    public static void find() throws DukeException {
+
+        int numeration = 0;
+        String listOfTasks;
+        String matchingWord = line.substring(LENGTH_OF_FIND + 1);
+
+        ArrayList<String> matchedTask = new ArrayList<>();
+
+        for (int i = 0; i < index; i++) {
+
+            listOfTasks = tasks.get(i).toString();
+
+            if (listOfTasks.contains(matchingWord)) {
+                numeration++;
+                matchedTask.add(listOfTasks);
+            }
+
+        }
+        if (numeration == 0) {
+            throw new DukeException("There are no matching tasks found\n");
+        }
+        System.out.print("Here are the matching tasks in your list:\n");
+
+        for (int order = 0; order < numeration; order++) {
+            System.out.printf("%d." + matchedTask.get(order) + "\n", order + 1);
+        }
+
+
+    }
+
     public static void writeToFile() throws IOException {
         FileWriter fw = new FileWriter("mytasks.txt");
         fw.write(list());
