@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 
-
 public class Duke {
 
     static final int LINES = 85;
@@ -31,7 +30,7 @@ public class Duke {
         try {
             loadFromFile(filePath);
 
-        }  catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             ui.showLoadingError();
 
         }
@@ -39,6 +38,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
+
         new Duke("mytasks.txt").run();
     }
 
@@ -52,7 +52,6 @@ public class Duke {
     }
 
 
-
     public static void run() {
 
         do {
@@ -63,7 +62,6 @@ public class Duke {
             String[] word = line.split(" ");
 
             try {
-
 
                 switch (word[0]) {
 
@@ -197,15 +195,15 @@ public class Duke {
 
     public static void find() throws DukeException {
 
-        int numeration=0;
+        int numeration = 0;
         String listOfTasks;
         String matchingWord = line.substring(LENGTH_OF_FIND + 1);
 
-        ArrayList<String> matchedTask = new ArrayList<>() ;
+        ArrayList<String> matchedTask = new ArrayList<>();
 
-        for(int i=0;i<index;i++) {
+        for (int i = 0; i < index; i++) {
 
-            listOfTasks= tasks.get(i).toString();
+            listOfTasks = tasks.get(i).toString();
 
             if (listOfTasks.contains(matchingWord)) {
                 numeration++;
@@ -213,15 +211,14 @@ public class Duke {
             }
 
         }
-        if (numeration==0) {
+        if (numeration == 0) {
             throw new DukeException("There are no matching tasks found\n");
         }
         System.out.print("Here are the matching tasks in your list:\n");
 
-        for(int order=0;order<numeration;order++){
-            System.out.printf("%d." + matchedTask.get(order) + "\n",order+1);
+        for (int order = 0; order < numeration; order++) {
+            System.out.printf("%d." + matchedTask.get(order) + "\n", order + 1);
         }
-
 
 
     }
