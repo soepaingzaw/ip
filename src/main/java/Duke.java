@@ -87,9 +87,6 @@ public class Duke {
                 case "delete":
                     delete();
                     break;
-                case "find":
-                    find();
-                    break;
                 default:
                     throw new DukeException();
                 }
@@ -134,7 +131,6 @@ public class Duke {
         addToTaskMessage();
         printNumberOfTask();
     }
-
 
     public static void event() throws DukeException {
         int indexOfSlash = line.indexOf('/');
@@ -185,6 +181,7 @@ public class Duke {
 
     }
 
+
     public static void delete() {
         int order = Integer.parseInt(line.substring(LENGTH_OF_DELETE + 1));
         System.out.print("Noted. I've removed this task:\n" +
@@ -194,6 +191,7 @@ public class Duke {
         index--;
         printNumberOfTask();
     }
+
 
 
     public static void find() throws DukeException {
@@ -225,7 +223,6 @@ public class Duke {
 
 
     }
-
 
     public static void writeToFile() throws IOException {
         FileWriter fw = new FileWriter("mytasks.txt");
