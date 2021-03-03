@@ -44,8 +44,7 @@ public class Duke {
         new Duke("mytasks.txt").run();
     }
 
-    /**Prints a line divider for every command
-     * entered by the user*/
+
     public static void printDivider() {
         for (int i = 0; i < LINES; i++) {
             System.out.print("_");
@@ -54,8 +53,6 @@ public class Duke {
 
     }
 
-    /**run the code indefinitely and take in multiple inputs from the user
-     * until "bye" is entered*/
     public static void run() {
 
         do {
@@ -90,9 +87,6 @@ public class Duke {
                 case "delete":
                     delete();
                     break;
-                case "find":
-                    find();
-                    break;
                 default:
                     throw new DukeException();
                 }
@@ -110,12 +104,6 @@ public class Duke {
 
     }
 
-    /**deadline creates a new todo object. The todo class
-     * is the subclass of the Task class
-     * it takes in the description of the todo
-     *
-     * @throws DukeException whenever input format is invalid
-     */
     public static void todo() throws DukeException {
         if (line.length() == LENGTH_OF_TODO) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.\n");
@@ -126,13 +114,7 @@ public class Duke {
         printNumberOfTask();
     }
 
-    /**deadline creates a new deadline object. The deadline class
-     * is the subclass of the Task class
-     * it takes in the description of the deadline as well as the
-     * Day and time from line
-     *
-     * @throws DukeException whenever input format is invalid
-     */
+
     public static void deadline() throws DukeException {
         int indexOfSlash = line.indexOf('/');
 
@@ -151,13 +133,6 @@ public class Duke {
         printNumberOfTask();
     }
 
-    /**event creates a new Event object. The event class
-     * is the subclass of the Task class
-     * it takes in the description of the Event as well as the
-     * Day and time period from line
-     *
-     * @throws DukeException whenever input format is invalid
-     */
     public static void event() throws DukeException {
         int indexOfSlash = line.indexOf('/');
         if (line.length() == LENGTH_OF_EVENT) {
@@ -207,9 +182,7 @@ public class Duke {
 
     }
 
-    /**delete and remove task from list
-     * based on the numeration given
-     */
+
     public static void delete() {
         int order = Integer.parseInt(line.substring(LENGTH_OF_DELETE + 1));
         System.out.print("Noted. I've removed this task:\n" +
@@ -220,62 +193,12 @@ public class Duke {
         printNumberOfTask();
     }
 
-    /**Performs steps to find matching words in the existing
-     *list of tasks
-     *
-     * @throws DukeException if there are no matching words to be found
-     */
-    public static void find() throws DukeException {
-
-        int numeration = 0;
-        String listOfTasks;
-        String matchingWord = line.substring(LENGTH_OF_FIND + 1);
-
-        ArrayList<String> matchedTask = new ArrayList<>();
-
-        for (int i = 0; i < index; i++) {
-
-            listOfTasks = tasks.get(i).toString();
-
-            if (listOfTasks.contains(matchingWord)) {
-                numeration++;
-                matchedTask.add(listOfTasks);
-            }
-
-        }
-        if (numeration == 0) {
-            throw new DukeException("There are no matching tasks found\n");
-        }
-        System.out.print("Here are the matching tasks in your list:\n");
-
-        for (int order = 0; order < numeration; order++) {
-            System.out.printf("%d." + matchedTask.get(order) + "\n", order + 1);
-        }
-
-
-    }
-
-    /**Saves current state of tasks in a textfile
-     *
-     * @throws IOException as a safe guard
-     */
     public static void writeToFile() throws IOException {
         FileWriter fw = new FileWriter("mytasks.txt");
         fw.write(list());
         fw.close();
     }
 
-    /**
-     * The filepath argument should be a relative {@link String}.
-     * When the app is starting, this method finds the file
-     * based on the relative filepath and compile them into a list
-     * of tasks within program.
-     *
-     * @param filepath a relative filepath giving the base location of the
-     * file to be imported
-     * @throws  FileNotFoundException If the file does not exist it throws
-     * a warning message
-     */
     public static void loadFromFile(String filepath) throws FileNotFoundException {
         File f = new File(filepath);
         Scanner scan = new Scanner(f);
