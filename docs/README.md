@@ -31,7 +31,7 @@ Example of usage:
 
 Expected outcome in list:
 
-`[T][✘] math homework`
+`[T][ ] math homework`
 
 ### `deadline` - type `deadline` followed by a task then write `/by` followed by the day and time which you have to complete it
 
@@ -43,7 +43,7 @@ Example of usage:
 
 Expected outcome in list:
 
-`[D][✘] form submission (by: Monday 12pm)`
+`[D][ ] form submission (by: Monday 12pm)`
 
 ### `event` - type `event` followed by a task then write `/at` followed by the day and time period which you will be attending said event
 
@@ -55,7 +55,7 @@ Example of usage:
 
 Expected outcome in list:
 
-`[E][✘] Sean's Birthday Party (at: Friday 7-11pm)`
+`[E][ ] Sean's Birthday Party (at: Friday 7-11pm)`
 
 ### `list` - type `list` to display all tasks, deadlines and events
 
@@ -65,9 +65,9 @@ Example of usage:
 
 Expected outcome:
 
-`1.[T][✘] math homework`  
-`2.[D][✘] form submission (by: Monday 12pm)`  
-`3.[E][✘] Sean's Birthday Party (at: Friday 7-11pm)`  
+`1.[T][ ] math homework`  
+`2.[D][ ] form submission (by: Monday 12pm)`  
+`3.[E][ ] Sean's Birthday Party (at: Friday 7-11pm)`  
 
 ### `done` - type `done` followed by the numeration of the task you have completed
 
@@ -80,7 +80,7 @@ Example of usage:
 Expected outcome:
 
 `Nice! I've marked this task as done:`  
-`[D][✓] form submission (by: Monday 12pm)`  
+`[D][X] form submission (by: Monday 12pm)`  
 
 ### `find` - type `find` followed by the word you are searching for in a task
 
@@ -92,7 +92,7 @@ Example of usage:
 
 Expected outcome:
 
-`1.[E][✘] Sean's Birthday Party (at: Friday 7-11pm)` 
+`1.[E][ ] Sean's Birthday Party (at: Friday 7-11pm)` 
 
 ### `delete` - type `delete` followed by the numeration of the task you want to remove from the list
 
@@ -105,7 +105,7 @@ Example of usage:
 Expected outcome:
 
 `Noted. I've removed this task:`  
-`[T][✘] math homework`  
+`[T][ ] math homework`  
 `Now you have 2 task(s) in the list.`     
 
 
